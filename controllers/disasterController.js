@@ -1,5 +1,9 @@
+
 const { PrismaClient, DisasterType } = require('@prisma/client');
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+const Redis = require('ioredis');
+const redis = new Redis();
+const { getDisasterRisk } = require('../models/externalApiModel');
 
 exports.addRegion = async (req, res) => {
     // บันทึกข้อมูล region ลงฐานข้อมูล
@@ -39,29 +43,107 @@ exports.addAlertSettings = async (req, res) => {
 
     //ดึงค่า DisasterType จาก enum
     const allowedDisasterTypes = Object.values(DisasterType)
-    
+
     if (!regionId) errors.push('กรุณากรอก regisionId')
     if (!disasterType || !allowedDisasterTypes.includes(disasterType)) {
         errors.push('กรุณากรอก disasterType')
     }
-    if (threshold === undefined) errors.push('กรุณากรอก threshold')
+    if (threshold === undefined || threshold === null || isNaN(Number(threshold))) {
+        errors.push('กรุณากรอก threshold ให้ถูกต้อง');
+    }
 
     // ถ้ามี error ให้ส่งกลับ
     if (errors.length > 0) {
         return res.status(400).json({ message: errors.join(', ') })
     }
-try {
-    //สร้าง alert setting เข้าdb
-    const  setting = await prisma.alertSetting.create({
-        data: {
-            regionId: Number(regionId),
-            disasterType,
-            threshold: Number(threshold)
-        }
-    })
-    res.status(201).json(setting)
-} catch (error) {
-    console.error('Error adding alert settings:',error)
-    res.status(500).json({message: 'เกิดข้อผิดพลาดในการเพิ่ม alert settings'})
+    try {
+        //สร้าง alert setting เข้าdb
+        const setting = await prisma.alertSetting.create({
+            data: {
+                regionId: Number(regionId),
+                disasterType,
+                threshold: Number(threshold)
+            }
+        })
+        res.status(201).json(setting)
+    } catch (error) {
+        console.error('Error adding alert settings:', error)
+        res.status(500).json({ message: 'เกิดข้อผิดพลาดในการเพิ่ม alert settings' })
+    }
 }
-}
+
+
+const RISK_LEVEL = {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW',
+};
+
+const classifyFloodScore = (rainfall) => {
+  if (rainfall >= 15) return RISK_LEVEL.HIGH;
+  if (rainfall >= 7) return RISK_LEVEL.MEDIUM;
+  return RISK_LEVEL.LOW;
+};
+
+const classifyScore = (disasterType, score) => {
+  switch (disasterType) {
+    case DisasterType.flood:
+      return classifyFloodScore(score);
+    // เพิ่มกรณี earthquake, wildfire เมื่อมีฟังก์ชันใช้งาน
+    default:
+      return RISK_LEVEL.LOW;
+  }
+};
+
+const calculateRiskScore = (disasterType, data) => {
+  switch (disasterType) {
+    case DisasterType.flood:
+      if (typeof data.rainfall === 'number') {
+        return data.rainfall;
+      }
+      return 0;
+    default:
+      return 0;
+  }
+};
+
+exports.getDisasterRisks = async (req, res) => {
+  try {
+    const report = await prisma.alertSetting.findMany({
+      include: { region: true },
+    });
+
+    const result = [];
+
+    for (const setting of report) {
+      const region = setting.region;
+      const disasterType = setting.disasterType;
+      const cacheKey = `risk:${region.id}:${disasterType}`;
+
+      let data = await redis.get(cacheKey);
+      if (data) {
+        data = JSON.parse(data);
+      } else {
+        data = await getDisasterRisk(region, disasterType);
+        await redis.set(cacheKey, JSON.stringify(data), 'EX', 900);
+      }
+
+      const riskScore = calculateRiskScore(disasterType, data);
+      const riskLevel = classifyScore(disasterType, riskScore);
+
+      result.push({
+        region: region.name,
+        disasterType,
+        data,
+        riskScore,
+        riskLevel,
+      });
+    }
+
+    res.json(result);
+
+  } catch (error) {
+    console.error('Error fetching disaster risks:', error);
+    res.status(500).json({ message: 'เกิดข้อผิดพลาดในการดึงข้อมูล disaster risks' });
+  }
+};
