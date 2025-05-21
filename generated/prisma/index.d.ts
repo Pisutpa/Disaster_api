@@ -1150,6 +1150,8 @@ export namespace Prisma {
     name: string | null
     latitude: number | null
     longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type RegionMaxAggregateOutputType = {
@@ -1157,6 +1159,8 @@ export namespace Prisma {
     name: string | null
     latitude: number | null
     longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type RegionCountAggregateOutputType = {
@@ -1164,6 +1168,8 @@ export namespace Prisma {
     name: number
     latitude: number
     longitude: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -1185,6 +1191,8 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type RegionMaxAggregateInputType = {
@@ -1192,6 +1200,8 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type RegionCountAggregateInputType = {
@@ -1199,6 +1209,8 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1293,6 +1305,8 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt: Date
+    updatedAt: Date
     _count: RegionCountAggregateOutputType | null
     _avg: RegionAvgAggregateOutputType | null
     _sum: RegionSumAggregateOutputType | null
@@ -1319,6 +1333,8 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     alertSettings?: boolean | Region$alertSettingsArgs<ExtArgs>
     alerts?: boolean | Region$alertsArgs<ExtArgs>
     _count?: boolean | RegionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1329,6 +1345,8 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["region"]>
 
   export type RegionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1336,6 +1354,8 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["region"]>
 
   export type RegionSelectScalar = {
@@ -1343,9 +1363,11 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type RegionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "latitude" | "longitude", ExtArgs["result"]["region"]>
+  export type RegionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["region"]>
   export type RegionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     alertSettings?: boolean | Region$alertSettingsArgs<ExtArgs>
     alerts?: boolean | Region$alertsArgs<ExtArgs>
@@ -1365,6 +1387,8 @@ export namespace Prisma {
       name: string
       latitude: number
       longitude: number
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["region"]>
     composites: {}
   }
@@ -1794,6 +1818,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Region", 'String'>
     readonly latitude: FieldRef<"Region", 'Float'>
     readonly longitude: FieldRef<"Region", 'Float'>
+    readonly createdAt: FieldRef<"Region", 'DateTime'>
+    readonly updatedAt: FieldRef<"Region", 'DateTime'>
   }
     
 
@@ -2277,6 +2303,8 @@ export namespace Prisma {
     regionId: number | null
     disasterType: $Enums.DisasterType | null
     threshold: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type AlertSettingMaxAggregateOutputType = {
@@ -2284,6 +2312,8 @@ export namespace Prisma {
     regionId: number | null
     disasterType: $Enums.DisasterType | null
     threshold: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type AlertSettingCountAggregateOutputType = {
@@ -2291,6 +2321,8 @@ export namespace Prisma {
     regionId: number
     disasterType: number
     threshold: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -2312,6 +2344,8 @@ export namespace Prisma {
     regionId?: true
     disasterType?: true
     threshold?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type AlertSettingMaxAggregateInputType = {
@@ -2319,6 +2353,8 @@ export namespace Prisma {
     regionId?: true
     disasterType?: true
     threshold?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type AlertSettingCountAggregateInputType = {
@@ -2326,6 +2362,8 @@ export namespace Prisma {
     regionId?: true
     disasterType?: true
     threshold?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -2420,6 +2458,8 @@ export namespace Prisma {
     regionId: number
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt: Date
+    updatedAt: Date
     _count: AlertSettingCountAggregateOutputType | null
     _avg: AlertSettingAvgAggregateOutputType | null
     _sum: AlertSettingSumAggregateOutputType | null
@@ -2446,6 +2486,8 @@ export namespace Prisma {
     regionId?: boolean
     disasterType?: boolean
     threshold?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alertSetting"]>
 
@@ -2454,6 +2496,8 @@ export namespace Prisma {
     regionId?: boolean
     disasterType?: boolean
     threshold?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alertSetting"]>
 
@@ -2462,6 +2506,8 @@ export namespace Prisma {
     regionId?: boolean
     disasterType?: boolean
     threshold?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alertSetting"]>
 
@@ -2470,9 +2516,11 @@ export namespace Prisma {
     regionId?: boolean
     disasterType?: boolean
     threshold?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type AlertSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "threshold", ExtArgs["result"]["alertSetting"]>
+  export type AlertSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "threshold" | "createdAt" | "updatedAt", ExtArgs["result"]["alertSetting"]>
   export type AlertSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }
@@ -2493,6 +2541,8 @@ export namespace Prisma {
       regionId: number
       disasterType: $Enums.DisasterType
       threshold: number
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["alertSetting"]>
     composites: {}
   }
@@ -2921,6 +2971,8 @@ export namespace Prisma {
     readonly regionId: FieldRef<"AlertSetting", 'Int'>
     readonly disasterType: FieldRef<"AlertSetting", 'DisasterType'>
     readonly threshold: FieldRef<"AlertSetting", 'Int'>
+    readonly createdAt: FieldRef<"AlertSetting", 'DateTime'>
+    readonly updatedAt: FieldRef<"AlertSetting", 'DateTime'>
   }
     
 
@@ -3364,6 +3416,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel | null
     message: string | null
     timestamp: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type AlertMaxAggregateOutputType = {
@@ -3373,6 +3427,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel | null
     message: string | null
     timestamp: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type AlertCountAggregateOutputType = {
@@ -3382,6 +3438,8 @@ export namespace Prisma {
     level: number
     message: number
     timestamp: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -3403,6 +3461,8 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type AlertMaxAggregateInputType = {
@@ -3412,6 +3472,8 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type AlertCountAggregateInputType = {
@@ -3421,6 +3483,8 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -3517,6 +3581,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date
+    createdAt: Date
+    updatedAt: Date
     _count: AlertCountAggregateOutputType | null
     _avg: AlertAvgAggregateOutputType | null
     _sum: AlertSumAggregateOutputType | null
@@ -3545,6 +3611,8 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alert"]>
 
@@ -3555,6 +3623,8 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alert"]>
 
@@ -3565,6 +3635,8 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["alert"]>
 
@@ -3575,9 +3647,11 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type AlertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "level" | "message" | "timestamp", ExtArgs["result"]["alert"]>
+  export type AlertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "level" | "message" | "timestamp" | "createdAt" | "updatedAt", ExtArgs["result"]["alert"]>
   export type AlertInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }
@@ -3600,6 +3674,8 @@ export namespace Prisma {
       level: $Enums.AlertLevel
       message: string
       timestamp: Date
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["alert"]>
     composites: {}
   }
@@ -4030,6 +4106,8 @@ export namespace Prisma {
     readonly level: FieldRef<"Alert", 'AlertLevel'>
     readonly message: FieldRef<"Alert", 'String'>
     readonly timestamp: FieldRef<"Alert", 'DateTime'>
+    readonly createdAt: FieldRef<"Alert", 'DateTime'>
+    readonly updatedAt: FieldRef<"Alert", 'DateTime'>
   }
     
 
@@ -4462,7 +4540,9 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     latitude: 'latitude',
-    longitude: 'longitude'
+    longitude: 'longitude',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type RegionScalarFieldEnum = (typeof RegionScalarFieldEnum)[keyof typeof RegionScalarFieldEnum]
@@ -4472,7 +4552,9 @@ export namespace Prisma {
     id: 'id',
     regionId: 'regionId',
     disasterType: 'disasterType',
-    threshold: 'threshold'
+    threshold: 'threshold',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type AlertSettingScalarFieldEnum = (typeof AlertSettingScalarFieldEnum)[keyof typeof AlertSettingScalarFieldEnum]
@@ -4484,7 +4566,9 @@ export namespace Prisma {
     disasterType: 'disasterType',
     level: 'level',
     message: 'message',
-    timestamp: 'timestamp'
+    timestamp: 'timestamp',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type AlertScalarFieldEnum = (typeof AlertScalarFieldEnum)[keyof typeof AlertScalarFieldEnum]
@@ -4554,6 +4638,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DisasterType'
    */
   export type EnumDisasterTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisasterType'>
@@ -4579,20 +4677,6 @@ export namespace Prisma {
    */
   export type ListEnumAlertLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AlertLevel[]'>
     
-
-
-  /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
   /**
    * Deep Input Types
    */
@@ -4606,6 +4690,8 @@ export namespace Prisma {
     name?: StringFilter<"Region"> | string
     latitude?: FloatFilter<"Region"> | number
     longitude?: FloatFilter<"Region"> | number
+    createdAt?: DateTimeFilter<"Region"> | Date | string
+    updatedAt?: DateTimeFilter<"Region"> | Date | string
     alertSettings?: AlertSettingListRelationFilter
     alerts?: AlertListRelationFilter
   }
@@ -4615,6 +4701,8 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     alertSettings?: AlertSettingOrderByRelationAggregateInput
     alerts?: AlertOrderByRelationAggregateInput
   }
@@ -4627,6 +4715,8 @@ export namespace Prisma {
     name?: StringFilter<"Region"> | string
     latitude?: FloatFilter<"Region"> | number
     longitude?: FloatFilter<"Region"> | number
+    createdAt?: DateTimeFilter<"Region"> | Date | string
+    updatedAt?: DateTimeFilter<"Region"> | Date | string
     alertSettings?: AlertSettingListRelationFilter
     alerts?: AlertListRelationFilter
   }, "id">
@@ -4636,6 +4726,8 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: RegionCountOrderByAggregateInput
     _avg?: RegionAvgOrderByAggregateInput
     _max?: RegionMaxOrderByAggregateInput
@@ -4651,6 +4743,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Region"> | string
     latitude?: FloatWithAggregatesFilter<"Region"> | number
     longitude?: FloatWithAggregatesFilter<"Region"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Region"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Region"> | Date | string
   }
 
   export type AlertSettingWhereInput = {
@@ -4661,6 +4755,8 @@ export namespace Prisma {
     regionId?: IntFilter<"AlertSetting"> | number
     disasterType?: EnumDisasterTypeFilter<"AlertSetting"> | $Enums.DisasterType
     threshold?: IntFilter<"AlertSetting"> | number
+    createdAt?: DateTimeFilter<"AlertSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertSetting"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
   }
 
@@ -4669,6 +4765,8 @@ export namespace Prisma {
     regionId?: SortOrder
     disasterType?: SortOrder
     threshold?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     region?: RegionOrderByWithRelationInput
   }
 
@@ -4680,6 +4778,8 @@ export namespace Prisma {
     regionId?: IntFilter<"AlertSetting"> | number
     disasterType?: EnumDisasterTypeFilter<"AlertSetting"> | $Enums.DisasterType
     threshold?: IntFilter<"AlertSetting"> | number
+    createdAt?: DateTimeFilter<"AlertSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertSetting"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
   }, "id">
 
@@ -4688,6 +4788,8 @@ export namespace Prisma {
     regionId?: SortOrder
     disasterType?: SortOrder
     threshold?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: AlertSettingCountOrderByAggregateInput
     _avg?: AlertSettingAvgOrderByAggregateInput
     _max?: AlertSettingMaxOrderByAggregateInput
@@ -4703,6 +4805,8 @@ export namespace Prisma {
     regionId?: IntWithAggregatesFilter<"AlertSetting"> | number
     disasterType?: EnumDisasterTypeWithAggregatesFilter<"AlertSetting"> | $Enums.DisasterType
     threshold?: IntWithAggregatesFilter<"AlertSetting"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AlertSetting"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AlertSetting"> | Date | string
   }
 
   export type AlertWhereInput = {
@@ -4715,6 +4819,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    createdAt?: DateTimeFilter<"Alert"> | Date | string
+    updatedAt?: DateTimeFilter<"Alert"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
   }
 
@@ -4725,6 +4831,8 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     region?: RegionOrderByWithRelationInput
   }
 
@@ -4738,6 +4846,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    createdAt?: DateTimeFilter<"Alert"> | Date | string
+    updatedAt?: DateTimeFilter<"Alert"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
   }, "id">
 
@@ -4748,6 +4858,8 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: AlertCountOrderByAggregateInput
     _avg?: AlertAvgOrderByAggregateInput
     _max?: AlertMaxOrderByAggregateInput
@@ -4765,12 +4877,16 @@ export namespace Prisma {
     level?: EnumAlertLevelWithAggregatesFilter<"Alert"> | $Enums.AlertLevel
     message?: StringWithAggregatesFilter<"Alert"> | string
     timestamp?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
   }
 
   export type RegionCreateInput = {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alertSettings?: AlertSettingCreateNestedManyWithoutRegionInput
     alerts?: AlertCreateNestedManyWithoutRegionInput
   }
@@ -4780,6 +4896,8 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alertSettings?: AlertSettingUncheckedCreateNestedManyWithoutRegionInput
     alerts?: AlertUncheckedCreateNestedManyWithoutRegionInput
   }
@@ -4788,6 +4906,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alertSettings?: AlertSettingUpdateManyWithoutRegionNestedInput
     alerts?: AlertUpdateManyWithoutRegionNestedInput
   }
@@ -4797,6 +4917,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alertSettings?: AlertSettingUncheckedUpdateManyWithoutRegionNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutRegionNestedInput
   }
@@ -4806,12 +4928,16 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type RegionUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RegionUncheckedUpdateManyInput = {
@@ -4819,11 +4945,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertSettingCreateInput = {
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     region: RegionCreateNestedOneWithoutAlertSettingsInput
   }
 
@@ -4832,11 +4962,15 @@ export namespace Prisma {
     regionId: number
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertSettingUpdateInput = {
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     region?: RegionUpdateOneRequiredWithoutAlertSettingsNestedInput
   }
 
@@ -4845,6 +4979,8 @@ export namespace Prisma {
     regionId?: IntFieldUpdateOperationsInput | number
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertSettingCreateManyInput = {
@@ -4852,11 +4988,15 @@ export namespace Prisma {
     regionId: number
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertSettingUpdateManyMutationInput = {
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertSettingUncheckedUpdateManyInput = {
@@ -4864,6 +5004,8 @@ export namespace Prisma {
     regionId?: IntFieldUpdateOperationsInput | number
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertCreateInput = {
@@ -4871,6 +5013,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     region: RegionCreateNestedOneWithoutAlertsInput
   }
 
@@ -4881,6 +5025,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertUpdateInput = {
@@ -4888,6 +5034,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     region?: RegionUpdateOneRequiredWithoutAlertsNestedInput
   }
 
@@ -4898,6 +5046,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertCreateManyInput = {
@@ -4907,6 +5057,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertUpdateManyMutationInput = {
@@ -4914,6 +5066,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertUncheckedUpdateManyInput = {
@@ -4923,6 +5077,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4962,6 +5118,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type AlertSettingListRelationFilter = {
     every?: AlertSettingWhereInput
     some?: AlertSettingWhereInput
@@ -4987,6 +5154,8 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type RegionAvgOrderByAggregateInput = {
@@ -5000,6 +5169,8 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type RegionMinOrderByAggregateInput = {
@@ -5007,6 +5178,8 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type RegionSumOrderByAggregateInput = {
@@ -5065,6 +5238,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type EnumDisasterTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.DisasterType | EnumDisasterTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DisasterType[] | ListEnumDisasterTypeFieldRefInput<$PrismaModel>
@@ -5082,6 +5269,8 @@ export namespace Prisma {
     regionId?: SortOrder
     disasterType?: SortOrder
     threshold?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertSettingAvgOrderByAggregateInput = {
@@ -5095,6 +5284,8 @@ export namespace Prisma {
     regionId?: SortOrder
     disasterType?: SortOrder
     threshold?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertSettingMinOrderByAggregateInput = {
@@ -5102,6 +5293,8 @@ export namespace Prisma {
     regionId?: SortOrder
     disasterType?: SortOrder
     threshold?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertSettingSumOrderByAggregateInput = {
@@ -5127,17 +5320,6 @@ export namespace Prisma {
     not?: NestedEnumAlertLevelFilter<$PrismaModel> | $Enums.AlertLevel
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type AlertCountOrderByAggregateInput = {
     id?: SortOrder
     regionId?: SortOrder
@@ -5145,6 +5327,8 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertAvgOrderByAggregateInput = {
@@ -5159,6 +5343,8 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertMinOrderByAggregateInput = {
@@ -5168,6 +5354,8 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AlertSumOrderByAggregateInput = {
@@ -5183,20 +5371,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAlertLevelFilter<$PrismaModel>
     _max?: NestedEnumAlertLevelFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type AlertSettingCreateNestedManyWithoutRegionInput = {
@@ -5237,6 +5411,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type AlertSettingUpdateManyWithoutRegionNestedInput = {
@@ -5331,10 +5509,6 @@ export namespace Prisma {
     set?: $Enums.AlertLevel
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type RegionUpdateOneRequiredWithoutAlertsNestedInput = {
     create?: XOR<RegionCreateWithoutAlertsInput, RegionUncheckedCreateWithoutAlertsInput>
     connectOrCreate?: RegionCreateOrConnectWithoutAlertsInput
@@ -5377,6 +5551,17 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5428,6 +5613,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedEnumDisasterTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.DisasterType | EnumDisasterTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DisasterType[] | ListEnumDisasterTypeFieldRefInput<$PrismaModel>
@@ -5452,17 +5651,6 @@ export namespace Prisma {
     not?: NestedEnumAlertLevelFilter<$PrismaModel> | $Enums.AlertLevel
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NestedEnumAlertLevelWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AlertLevel | EnumAlertLevelFieldRefInput<$PrismaModel>
     in?: $Enums.AlertLevel[] | ListEnumAlertLevelFieldRefInput<$PrismaModel>
@@ -5473,29 +5661,19 @@ export namespace Prisma {
     _max?: NestedEnumAlertLevelFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type AlertSettingCreateWithoutRegionInput = {
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertSettingUncheckedCreateWithoutRegionInput = {
     id?: number
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertSettingCreateOrConnectWithoutRegionInput = {
@@ -5513,6 +5691,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertUncheckedCreateWithoutRegionInput = {
@@ -5521,6 +5701,8 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertCreateOrConnectWithoutRegionInput = {
@@ -5557,6 +5739,8 @@ export namespace Prisma {
     regionId?: IntFilter<"AlertSetting"> | number
     disasterType?: EnumDisasterTypeFilter<"AlertSetting"> | $Enums.DisasterType
     threshold?: IntFilter<"AlertSetting"> | number
+    createdAt?: DateTimeFilter<"AlertSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertSetting"> | Date | string
   }
 
   export type AlertUpsertWithWhereUniqueWithoutRegionInput = {
@@ -5585,12 +5769,16 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    createdAt?: DateTimeFilter<"Alert"> | Date | string
+    updatedAt?: DateTimeFilter<"Alert"> | Date | string
   }
 
   export type RegionCreateWithoutAlertSettingsInput = {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alerts?: AlertCreateNestedManyWithoutRegionInput
   }
 
@@ -5599,6 +5787,8 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alerts?: AlertUncheckedCreateNestedManyWithoutRegionInput
   }
 
@@ -5622,6 +5812,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alerts?: AlertUpdateManyWithoutRegionNestedInput
   }
 
@@ -5630,6 +5822,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alerts?: AlertUncheckedUpdateManyWithoutRegionNestedInput
   }
 
@@ -5637,6 +5831,8 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alertSettings?: AlertSettingCreateNestedManyWithoutRegionInput
   }
 
@@ -5645,6 +5841,8 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
     alertSettings?: AlertSettingUncheckedCreateNestedManyWithoutRegionInput
   }
 
@@ -5668,6 +5866,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alertSettings?: AlertSettingUpdateManyWithoutRegionNestedInput
   }
 
@@ -5676,6 +5876,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alertSettings?: AlertSettingUncheckedUpdateManyWithoutRegionNestedInput
   }
 
@@ -5683,6 +5885,8 @@ export namespace Prisma {
     id?: number
     disasterType: $Enums.DisasterType
     threshold: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertCreateManyRegionInput = {
@@ -5691,23 +5895,31 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AlertSettingUpdateWithoutRegionInput = {
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertSettingUncheckedUpdateWithoutRegionInput = {
     id?: IntFieldUpdateOperationsInput | number
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertSettingUncheckedUpdateManyWithoutRegionInput = {
     id?: IntFieldUpdateOperationsInput | number
     disasterType?: EnumDisasterTypeFieldUpdateOperationsInput | $Enums.DisasterType
     threshold?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertUpdateWithoutRegionInput = {
@@ -5715,6 +5927,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertUncheckedUpdateWithoutRegionInput = {
@@ -5723,6 +5937,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AlertUncheckedUpdateManyWithoutRegionInput = {
@@ -5731,6 +5947,8 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

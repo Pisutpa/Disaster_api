@@ -1,4 +1,5 @@
 const express = require('express')
+const { addRegion } = require('../controllers/disasterController')
 const router = express.Router()
 
 

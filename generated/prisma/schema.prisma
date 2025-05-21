@@ -16,6 +16,9 @@ model Region {
 
   alertSettings AlertSetting[]
   alerts        Alert[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AlertSetting {
@@ -25,6 +28,9 @@ model AlertSetting {
   threshold    Int
 
   region Region @relation(fields: [regionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Alert {
@@ -36,6 +42,9 @@ model Alert {
   timestamp    DateTime
 
   region Region @relation(fields: [regionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum DisasterType {

@@ -124,14 +124,18 @@ exports.Prisma.RegionScalarFieldEnum = {
   id: 'id',
   name: 'name',
   latitude: 'latitude',
-  longitude: 'longitude'
+  longitude: 'longitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AlertSettingScalarFieldEnum = {
   id: 'id',
   regionId: 'regionId',
   disasterType: 'disasterType',
-  threshold: 'threshold'
+  threshold: 'threshold',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AlertScalarFieldEnum = {
@@ -140,7 +144,9 @@ exports.Prisma.AlertScalarFieldEnum = {
   disasterType: 'disasterType',
   level: 'level',
   message: 'message',
-  timestamp: 'timestamp'
+  timestamp: 'timestamp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
