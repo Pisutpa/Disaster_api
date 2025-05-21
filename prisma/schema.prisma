@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Region {
+  id           Int             @id @default(autoincrement())
+  name         String
+  latitude     Float
+  longitude    Float
+
+  alertSettings AlertSetting[]
+  alerts        Alert[]
+}
+
+model AlertSetting {
+  id           Int           @id @default(autoincrement())
+  regionId     Int
+  disasterType DisasterType
+  threshold    Int
+
+  region Region @relation(fields: [regionId], references: [id])
+}
+
+model Alert {
+  id           Int           @id @default(autoincrement())
+  regionId     Int
+  disasterType DisasterType
+  level        AlertLevel
+  message      String
+  timestamp    DateTime
+
+  region Region @relation(fields: [regionId], references: [id])
+}
+
+enum DisasterType {
+  flood
+  earthquake
+  wildfire
+}
+
+enum AlertLevel {
+  Low
+  Medium
+  High
+}
