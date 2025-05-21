@@ -18,7 +18,7 @@ model Region {
   alerts        Alert[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model AlertSetting {
@@ -30,7 +30,7 @@ model AlertSetting {
   region Region @relation(fields: [regionId], references: [id])
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Alert {

@@ -9,32 +9,33 @@ datasource db {
 }
 
 model Region {
-  id           Int             @id @default(autoincrement())
-  name         String
-  latitude     Float
-  longitude    Float
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  Float
+  longitude Float
 
   alertSettings AlertSetting[]
   alerts        Alert[]
 
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model AlertSetting {
-  id           Int           @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   regionId     Int
   disasterType DisasterType
   threshold    Int
 
   region Region @relation(fields: [regionId], references: [id])
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
 }
 
 model Alert {
-  id           Int           @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   regionId     Int
   disasterType DisasterType
   level        AlertLevel
@@ -43,10 +44,9 @@ model Alert {
 
   region Region @relation(fields: [regionId], references: [id])
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
 
 enum DisasterType {
   flood
