@@ -46,7 +46,6 @@ exports.getDisasterRisk = async (region, disasterType) => {
             format: 'geojson',
             limit: 1,
             orderby: 'time',
-            // กรองพิกัดถ้าต้องการจำกัดพื้นที่
             minlatitude: region.minLat,
             maxlatitude: region.maxLat,
             minlongitude: region.minLon,
@@ -58,14 +57,26 @@ exports.getDisasterRisk = async (region, disasterType) => {
           const quake = response.data.features[0];
           const magnitude = quake.properties.mag || 0;
           const place = quake.properties.place || 'Unknown';
-          const Time = quake.properties.time ? new Date(quake.properties.time) : null;
-          if (Time) {
-            const timeInBangkok = new Date(Time.getTime() + 7 * 60 * 60 * 1000); // +7 ชม.
-            const formattedTime = timeInBangkok.toISOString().replace('T', ' ').substring(0, 19);
 
+          const timeUTC = quake.properties.time ? new Date(quake.properties.time) : null;
+
+          if (timeUTC) {
+            const timeInBangkok = new Date(timeUTC.getTime() + 7 * 60 * 60 * 1000); // +7 ชั่วโมง
+            const formattedTime = timeInBangkok.toISOString().replace('T', ' ').substring(0, 19);
             console.log('เวลาประเทศไทย:', formattedTime);
+
+            return {
+              magnitude: magnitude.toFixed(2),
+              place,
+              time: formattedTime  // ✅ ส่งค่าที่แปลงแล้วกลับไป
+            };
+          } else {
+            return {
+              magnitude: magnitude.toFixed(2),
+              place,
+              time: null
+            };
           }
-          return { magnitude: magnitude.toFixed(2), place, Time };
         } else {
           return {};
         }
@@ -77,8 +88,34 @@ exports.getDisasterRisk = async (region, disasterType) => {
     }
 
     case DisasterType.wildfire: {
-      // ตัวอย่างข้อมูลสมมติ
-      return { temperature: 35, humidity: 40 }
+      try {
+        const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
+          params: {
+            latitude: region.latitude,
+            longitude: region.latitude,
+            hourly: 'temperature_2m,relative_humidity_2m',
+            timezone: 'Asia/Bangkok',
+          }
+        })
+        const hourly = response.data?.hourly
+        const temperatures = hourly.temperature_2m || []
+        const humidities = hourly?.relative_humidity_2m || []
+        const avgTemp = temperatures.length
+          ? temperatures.reduce((sum, val) => sum + val, 0) / temperatures.length
+          : 0;
+
+        const avgHumidity = humidities.length
+          ? humidities.reduce((sum, val) => sum + val, 0) / humidities.length
+          : 0;
+
+        return {
+          temperature: parseFloat(avgTemp.toFixed(2)),
+          humidity: parseFloat(avgHumidity.toFixed(2)),
+        };
+      } catch (error) {
+        console.error('Error fetching widfire data', error)
+        return {}
+      }
     }
     default:
       console.warn(`Unknown disaster type: ${disasterType}`)
