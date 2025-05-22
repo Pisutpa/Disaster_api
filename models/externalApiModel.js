@@ -31,7 +31,7 @@ exports.getDisasterRisk = async (region, disasterType) => {
           ? precipitationArray.reduce((sum, val) => sum + val, 0) / precipitationArray.length
           : 0
 
-    
+
         return { rainfall: rainfall.toFixed(2) };
 
       } catch (error) {
@@ -40,9 +40,42 @@ exports.getDisasterRisk = async (region, disasterType) => {
       }
     }
     case DisasterType.earthquake: {
-      // ตัวอย่างข้อมูลสมมติ
-      return { magnitude: 5.5 }
+      try {
+        const response = await axios.get('https://earthquake.usgs.gov/fdsnws/event/1/query', {
+          params: {
+            format: 'geojson',
+            limit: 1,
+            orderby: 'time',
+            // กรองพิกัดถ้าต้องการจำกัดพื้นที่
+            minlatitude: region.minLat,
+            maxlatitude: region.maxLat,
+            minlongitude: region.minLon,
+            maxlongitude: region.maxLon,
+          }
+        });
+
+        if (response.data?.features?.length > 0) {
+          const quake = response.data.features[0];
+          const magnitude = quake.properties.mag || 0;
+          const place = quake.properties.place || 'Unknown';
+          const Time = quake.properties.time ? new Date(quake.properties.time) : null;
+          if (Time) {
+            const timeInBangkok = new Date(Time.getTime() + 7 * 60 * 60 * 1000); // +7 ชม.
+            const formattedTime = timeInBangkok.toISOString().replace('T', ' ').substring(0, 19);
+
+            console.log('เวลาประเทศไทย:', formattedTime);
+          }
+          return { magnitude: magnitude.toFixed(2), place, Time };
+        } else {
+          return {};
+        }
+
+      } catch (error) {
+        console.error('Error fetching earthquake data:', error);
+        return {};
+      }
     }
+
     case DisasterType.wildfire: {
       // ตัวอย่างข้อมูลสมมติ
       return { temperature: 35, humidity: 40 }

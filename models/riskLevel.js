@@ -49,11 +49,12 @@ exports.calculateRiskScore = (disasterType, data) => {
                 return rainfall;
             }
             return 0;
-        // case DisasterType.earthquake:
-        //     if (typeof data.rainfall === 'number') {
-        //         return data.rainfall;
-        //     }
-        //     return 0;
+        case DisasterType.earthquake:
+            const magnitude = parseFloat(data.magnitude);
+            if (!isNaN(magnitude)) {
+                return magnitude;
+            }
+            return 0;
         // case DisasterType.wildfire:
         //     if (typeof data.rainfall === 'number') {
         //         return data.rainfall;
