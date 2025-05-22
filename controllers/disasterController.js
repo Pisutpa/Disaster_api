@@ -119,6 +119,47 @@ exports.getDisasterRisks = async (req, res) => {
   }
 }
 
+exports.creatAlert = async (req, res) => {
+  const { regionId, disasterType, level, message } = req.body;
+
+  if (!regionId || !disasterType || !level || !message) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  try {
+    // ดึงข้อมูล Region พร้อม AlertSettings ที่ตรงกับ disasterType
+    const region = await prisma.region.findUnique({
+      where: { id: regionId },
+      include: {
+        alertSettings: {
+          where: { disasterType }
+        }
+      }
+    });
+
+    if (!region) {
+      return res.status(404).json({ error: "Region not found." });
+    }
+
+    // สร้าง Alert
+    const newAlert = await prisma.alert.create({
+      data: {
+        regionId,
+        disasterType,
+        level,
+        message,
+        timestamp: new Date()
+      }
+    });
+
+    res.status(201).json(newAlert);
+
+  } catch (err) {
+    console.error("Error Creates Alert:", err);
+    res.status(500).json({ error: "Failed to create alert." });
+  }
+};
+
 exports.sendAlert = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -170,7 +211,7 @@ exports.sendAlert = async (req, res) => {
             sent: true,
             sentAt: new Date(),
             channel: 'EMAIL',
-            sendErrorMessage: null,
+           
           },
         });
 
@@ -185,7 +226,7 @@ exports.sendAlert = async (req, res) => {
             sent: false,
             sentAt: null,
             channel: 'EMAIL',
-            sendErrorMessage: alertError.message,
+           
           },
         });
 
