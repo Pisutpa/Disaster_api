@@ -3416,6 +3416,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel | null
     message: string | null
     timestamp: Date | null
+    sent: boolean | null
+    channel: string | null
+    sentAt: Date | null
+    phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3427,6 +3431,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel | null
     message: string | null
     timestamp: Date | null
+    sent: boolean | null
+    channel: string | null
+    sentAt: Date | null
+    phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3438,6 +3446,10 @@ export namespace Prisma {
     level: number
     message: number
     timestamp: number
+    sent: number
+    channel: number
+    sentAt: number
+    phoneNumber: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3461,6 +3473,10 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    sent?: true
+    channel?: true
+    sentAt?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3472,6 +3488,10 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    sent?: true
+    channel?: true
+    sentAt?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3483,6 +3503,10 @@ export namespace Prisma {
     level?: true
     message?: true
     timestamp?: true
+    sent?: true
+    channel?: true
+    sentAt?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3581,6 +3605,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date
+    sent: boolean
+    channel: string | null
+    sentAt: Date | null
+    phoneNumber: string | null
     createdAt: Date
     updatedAt: Date
     _count: AlertCountAggregateOutputType | null
@@ -3611,6 +3639,10 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    sent?: boolean
+    channel?: boolean
+    sentAt?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
@@ -3623,6 +3655,10 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    sent?: boolean
+    channel?: boolean
+    sentAt?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
@@ -3635,6 +3671,10 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    sent?: boolean
+    channel?: boolean
+    sentAt?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     region?: boolean | RegionDefaultArgs<ExtArgs>
@@ -3647,11 +3687,15 @@ export namespace Prisma {
     level?: boolean
     message?: boolean
     timestamp?: boolean
+    sent?: boolean
+    channel?: boolean
+    sentAt?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AlertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "level" | "message" | "timestamp" | "createdAt" | "updatedAt", ExtArgs["result"]["alert"]>
+  export type AlertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "regionId" | "disasterType" | "level" | "message" | "timestamp" | "sent" | "channel" | "sentAt" | "phoneNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["alert"]>
   export type AlertInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | RegionDefaultArgs<ExtArgs>
   }
@@ -3674,6 +3718,10 @@ export namespace Prisma {
       level: $Enums.AlertLevel
       message: string
       timestamp: Date
+      sent: boolean
+      channel: string | null
+      sentAt: Date | null
+      phoneNumber: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["alert"]>
@@ -4106,6 +4154,10 @@ export namespace Prisma {
     readonly level: FieldRef<"Alert", 'AlertLevel'>
     readonly message: FieldRef<"Alert", 'String'>
     readonly timestamp: FieldRef<"Alert", 'DateTime'>
+    readonly sent: FieldRef<"Alert", 'Boolean'>
+    readonly channel: FieldRef<"Alert", 'String'>
+    readonly sentAt: FieldRef<"Alert", 'DateTime'>
+    readonly phoneNumber: FieldRef<"Alert", 'String'>
     readonly createdAt: FieldRef<"Alert", 'DateTime'>
     readonly updatedAt: FieldRef<"Alert", 'DateTime'>
   }
@@ -4567,6 +4619,10 @@ export namespace Prisma {
     level: 'level',
     message: 'message',
     timestamp: 'timestamp',
+    sent: 'sent',
+    channel: 'channel',
+    sentAt: 'sentAt',
+    phoneNumber: 'phoneNumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4588,6 +4644,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -4676,6 +4740,13 @@ export namespace Prisma {
    * Reference to a field of type 'AlertLevel[]'
    */
   export type ListEnumAlertLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AlertLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -4819,6 +4890,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    sent?: BoolFilter<"Alert"> | boolean
+    channel?: StringNullableFilter<"Alert"> | string | null
+    sentAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
+    phoneNumber?: StringNullableFilter<"Alert"> | string | null
     createdAt?: DateTimeFilter<"Alert"> | Date | string
     updatedAt?: DateTimeFilter<"Alert"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
@@ -4831,6 +4906,10 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    sent?: SortOrder
+    channel?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     region?: RegionOrderByWithRelationInput
@@ -4838,6 +4917,7 @@ export namespace Prisma {
 
   export type AlertWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    regionId_disasterType_timestamp?: AlertRegionIdDisasterTypeTimestampCompoundUniqueInput
     AND?: AlertWhereInput | AlertWhereInput[]
     OR?: AlertWhereInput[]
     NOT?: AlertWhereInput | AlertWhereInput[]
@@ -4846,10 +4926,14 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    sent?: BoolFilter<"Alert"> | boolean
+    channel?: StringNullableFilter<"Alert"> | string | null
+    sentAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
+    phoneNumber?: StringNullableFilter<"Alert"> | string | null
     createdAt?: DateTimeFilter<"Alert"> | Date | string
     updatedAt?: DateTimeFilter<"Alert"> | Date | string
     region?: XOR<RegionScalarRelationFilter, RegionWhereInput>
-  }, "id">
+  }, "id" | "regionId_disasterType_timestamp">
 
   export type AlertOrderByWithAggregationInput = {
     id?: SortOrder
@@ -4858,6 +4942,10 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    sent?: SortOrder
+    channel?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AlertCountOrderByAggregateInput
@@ -4877,6 +4965,10 @@ export namespace Prisma {
     level?: EnumAlertLevelWithAggregatesFilter<"Alert"> | $Enums.AlertLevel
     message?: StringWithAggregatesFilter<"Alert"> | string
     timestamp?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
+    sent?: BoolWithAggregatesFilter<"Alert"> | boolean
+    channel?: StringNullableWithAggregatesFilter<"Alert"> | string | null
+    sentAt?: DateTimeNullableWithAggregatesFilter<"Alert"> | Date | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"Alert"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Alert"> | Date | string
   }
@@ -5013,6 +5105,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     region: RegionCreateNestedOneWithoutAlertsInput
@@ -5025,6 +5121,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5034,6 +5134,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     region?: RegionUpdateOneRequiredWithoutAlertsNestedInput
@@ -5046,6 +5150,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5057,6 +5165,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5066,6 +5178,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5077,6 +5193,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5320,6 +5440,48 @@ export namespace Prisma {
     not?: NestedEnumAlertLevelFilter<$PrismaModel> | $Enums.AlertLevel
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type AlertRegionIdDisasterTypeTimestampCompoundUniqueInput = {
+    regionId: number
+    disasterType: $Enums.DisasterType
+    timestamp: Date | string
+  }
+
   export type AlertCountOrderByAggregateInput = {
     id?: SortOrder
     regionId?: SortOrder
@@ -5327,6 +5489,10 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    sent?: SortOrder
+    channel?: SortOrder
+    sentAt?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5343,6 +5509,10 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    sent?: SortOrder
+    channel?: SortOrder
+    sentAt?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5354,6 +5524,10 @@ export namespace Prisma {
     level?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+    sent?: SortOrder
+    channel?: SortOrder
+    sentAt?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5371,6 +5545,46 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAlertLevelFilter<$PrismaModel>
     _max?: NestedEnumAlertLevelFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AlertSettingCreateNestedManyWithoutRegionInput = {
@@ -5507,6 +5721,18 @@ export namespace Prisma {
 
   export type EnumAlertLevelFieldUpdateOperationsInput = {
     set?: $Enums.AlertLevel
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type RegionUpdateOneRequiredWithoutAlertsNestedInput = {
@@ -5651,6 +5877,36 @@ export namespace Prisma {
     not?: NestedEnumAlertLevelFilter<$PrismaModel> | $Enums.AlertLevel
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumAlertLevelWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AlertLevel | EnumAlertLevelFieldRefInput<$PrismaModel>
     in?: $Enums.AlertLevel[] | ListEnumAlertLevelFieldRefInput<$PrismaModel>
@@ -5659,6 +5915,56 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAlertLevelFilter<$PrismaModel>
     _max?: NestedEnumAlertLevelFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AlertSettingCreateWithoutRegionInput = {
@@ -5691,6 +5997,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5701,6 +6011,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5769,6 +6083,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFilter<"Alert"> | $Enums.AlertLevel
     message?: StringFilter<"Alert"> | string
     timestamp?: DateTimeFilter<"Alert"> | Date | string
+    sent?: BoolFilter<"Alert"> | boolean
+    channel?: StringNullableFilter<"Alert"> | string | null
+    sentAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
+    phoneNumber?: StringNullableFilter<"Alert"> | string | null
     createdAt?: DateTimeFilter<"Alert"> | Date | string
     updatedAt?: DateTimeFilter<"Alert"> | Date | string
   }
@@ -5895,6 +6213,10 @@ export namespace Prisma {
     level: $Enums.AlertLevel
     message: string
     timestamp: Date | string
+    sent?: boolean
+    channel?: string | null
+    sentAt?: Date | string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5927,6 +6249,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5937,6 +6263,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5947,6 +6277,10 @@ export namespace Prisma {
     level?: EnumAlertLevelFieldUpdateOperationsInput | $Enums.AlertLevel
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    channel?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

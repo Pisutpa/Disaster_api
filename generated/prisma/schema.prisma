@@ -40,11 +40,16 @@ model Alert {
   level        AlertLevel
   message      String
   timestamp    DateTime
-
-  region Region @relation(fields: [regionId], references: [id])
+  sent         Boolean      @default(false)
+  channel      String?
+  sentAt       DateTime?
+  phoneNumber  String?
+  region       Region       @relation(fields: [regionId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([regionId, disasterType, timestamp])
 }
 
 enum DisasterType {

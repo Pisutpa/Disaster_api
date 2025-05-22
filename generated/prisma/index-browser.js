@@ -145,6 +145,10 @@ exports.Prisma.AlertScalarFieldEnum = {
   level: 'level',
   message: 'message',
   timestamp: 'timestamp',
+  sent: 'sent',
+  channel: 'channel',
+  sentAt: 'sentAt',
+  phoneNumber: 'phoneNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -157,6 +161,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.DisasterType = exports.$Enums.DisasterType = {
   flood: 'flood',
