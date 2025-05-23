@@ -180,17 +180,17 @@ exports.sendAlert = async (req, res) => {
 
     for (const alert of pendingAlerts) {
       if (!alert.region?.name || !alert.disasterType || !alert.level || !alert.message) {
-        console.warn(`⛔ Alert ID ${alert.id} missing critical data, skipped.`);
+        console.warn(` Alert ID ${alert.id} missing critical data, skipped.`);
         failedCount++;
         continue;
       }
 
-      const message = `📢 แจ้งเตือนภัยพิบัติ
-ภูมิภาค: ${alert.region.name}
-ประเภท: ${alert.disasterType}
-ระดับ: ${alert.level}
-ข้อความ: ${alert.message}
-เวลา: ${new Date(alert.timestamp).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`;
+      const message = ` แจ้งเตือนภัยพิบัติ
+            ภูมิภาค: ${alert.region.name}
+            ประเภท: ${alert.disasterType}
+            ระดับ: ${alert.level}
+            ข้อความ: ${alert.message}
+            เวลา: ${new Date(alert.timestamp).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`;
 
       // fallback email
       const emailTo = alert.email || process.env.DEFAULT_EMAIL || 'pisut.patest@gmail.com';
@@ -215,10 +215,10 @@ exports.sendAlert = async (req, res) => {
           },
         });
 
-        console.log(`✅ Alert ID ${alert.id} sent to ${emailTo}`);
+        console.log(` Alert ID ${alert.id} sent to ${emailTo}`);
         successCount++;
       } catch (alertError) {
-        console.error(`❌ Failed to send alert ID ${alert.id}:`, alertError.message);
+        console.error(` Failed to send alert ID ${alert.id}:`, alertError.message);
 
         await prisma.alert.update({
           where: { id: alert.id },
@@ -241,7 +241,7 @@ exports.sendAlert = async (req, res) => {
       total: pendingAlerts.length,
     });
   } catch (error) {
-    console.error('🚨 Send alert error:', error);
+    console.error(' Send alert error:', error);
     res.status(500).json({ status: 'error', message: 'Failed to send alerts', detail: error.message });
   }
 };
