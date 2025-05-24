@@ -2,12 +2,12 @@
 const { PrismaClient, DisasterType } = require('../generated/prisma')
 const prisma = new PrismaClient()
 
-const sgMail = require('@sendgrid/mail');
-const twilio = require('twilio')
+const sgMail = require('@sendgrid/mail')
 const Redis = require('ioredis')
 const redis = new Redis()
 const { getDisasterRisk } = require('../models/externalApiModel')
 const { calculateRiskScore, classifyScore } = require('../models/riskLevel')
+const { json } = require('express')
 require('dotenv').config()
 
 
@@ -120,10 +120,10 @@ exports.getDisasterRisks = async (req, res) => {
 }
 
 exports.creatAlert = async (req, res) => {
-  const { regionId, disasterType, level, message } = req.body;
+  const { regionId, disasterType, level, message } = req.body
 
   if (!regionId || !disasterType || !level || !message) {
-    return res.status(400).json({ error: "All fields are required." });
+    return res.status(400).json({ error: "All fields are required." })
   }
 
   try {
@@ -135,10 +135,10 @@ exports.creatAlert = async (req, res) => {
           where: { disasterType }
         }
       }
-    });
+    })
 
     if (!region) {
-      return res.status(404).json({ error: "Region not found." });
+      return res.status(404).json({ error: "Region not found." })
     }
 
     // สร้าง Alert
@@ -150,39 +150,39 @@ exports.creatAlert = async (req, res) => {
         message,
         timestamp: new Date()
       }
-    });
+    })
 
-    res.status(201).json(newAlert);
+    res.status(201).json(newAlert)
 
   } catch (err) {
-    console.error("Error Creates Alert:", err);
-    res.status(500).json({ error: "Failed to create alert." });
+    console.error("Error Creates Alert:", err)
+    res.status(500).json({ error: "Failed to create alert." })
   }
-};
+}
 
 exports.sendAlert = async (req, res) => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
   try {
     const pendingAlerts = await prisma.alert.findMany({
       where: { sent: false },
       include: { region: true },
-    });
+    })
 
-    console.log(`Found ${pendingAlerts.length} pending alerts`);
+    console.log(`Found ${pendingAlerts.length} pending alerts`)
 
     if (pendingAlerts.length === 0) {
-      return res.json({ status: 'success', sentCount: 0, message: 'No alerts to send' });
+      return res.json({ status: 'success', sentCount: 0, message: 'No alerts to send' })
     }
 
-    let successCount = 0;
-    let failedCount = 0;
+    let successCount = 0
+    let failedCount = 0
 
     for (const alert of pendingAlerts) {
       if (!alert.region?.name || !alert.disasterType || !alert.level || !alert.message) {
-        console.warn(` Alert ID ${alert.id} missing critical data, skipped.`);
-        failedCount++;
-        continue;
+        console.warn(` Alert ID ${alert.id} missing critical data, skipped.`)
+        failedCount++
+        continue
       }
 
       const message = ` แจ้งเตือนภัยพิบัติ
@@ -190,20 +190,20 @@ exports.sendAlert = async (req, res) => {
             ประเภท: ${alert.disasterType}
             ระดับ: ${alert.level}
             ข้อความ: ${alert.message}
-            เวลา: ${new Date(alert.timestamp).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`;
+            เวลา: ${new Date(alert.timestamp).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`
 
       // fallback email
-      const emailTo = alert.email || process.env.DEFAULT_EMAIL || 'pisut.patest@gmail.com';
+      const emailTo = alert.email || process.env.DEFAULT_EMAIL || 'pisut.patest@gmail.com'
 
       const emailMsg = {
         to: emailTo,
         from: process.env.SENDGRID_FROM_EMAIL,
         subject: `แจ้งเตือนภัยพิบัติ - ${alert.region.name}`,
         text: message,
-      };
+      }
 
       try {
-        await sgMail.send(emailMsg);
+        await sgMail.send(emailMsg)
 
         await prisma.alert.update({
           where: { id: alert.id },
@@ -211,14 +211,14 @@ exports.sendAlert = async (req, res) => {
             sent: true,
             sentAt: new Date(),
             channel: 'EMAIL',
-           
-          },
-        });
 
-        console.log(` Alert ID ${alert.id} sent to ${emailTo}`);
-        successCount++;
+          },
+        })
+
+        console.log(` Alert ID ${alert.id} sent to ${emailTo}`)
+        successCount++
       } catch (alertError) {
-        console.error(` Failed to send alert ID ${alert.id}:`, alertError.message);
+        console.error(` Failed to send alert ID ${alert.id}:`, alertError.message)
 
         await prisma.alert.update({
           where: { id: alert.id },
@@ -226,11 +226,11 @@ exports.sendAlert = async (req, res) => {
             sent: false,
             sentAt: null,
             channel: 'EMAIL',
-           
-          },
-        });
 
-        failedCount++;
+          },
+        })
+
+        failedCount++
       }
     }
 
@@ -239,9 +239,30 @@ exports.sendAlert = async (req, res) => {
       sentCount: successCount,
       failedCount: failedCount,
       total: pendingAlerts.length,
-    });
+    })
   } catch (error) {
-    console.error(' Send alert error:', error);
-    res.status(500).json({ status: 'error', message: 'Failed to send alerts', detail: error.message });
+    console.error(' Send alert error:', error)
+    res.status(500).json({ status: 'error', message: 'Failed to send alerts', detail: error.message })
   }
-};
+}
+
+exports.getAlerts = async (req, res) => {
+  try {
+    const fetchAlerts = await prisma.alert.findMany({
+      orderBy:[
+        { regionId: 'asc'},
+        { createdAt: 'desc'}
+      ],
+      distinct:['regionId'],
+      include:{
+        region:true
+      }
+    })
+    res.status(200).json(fetchAlerts)
+  } catch (error) {
+    console.error('ดึงแจ้งเตือนล่าสุดในแต่ละพื้นที่ล้มเหลว', error)
+    res.status(500), json({ message: 'เกิดข้อผิดพลาดในการดึงข้อมูล Alerts' })
+
+  }
+
+}
