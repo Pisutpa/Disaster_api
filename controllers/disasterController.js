@@ -15,7 +15,7 @@ exports.addRegion = async (req, res) => {
   // บันทึกข้อมูล region ลงฐานข้อมูล
   try {
     const { name, latitude, longitude } = req.body
-    console.log(name, latitude, longitude)
+
     //ตรวจสอบการกรอกข้อมูล
     const errors = []
 
@@ -37,7 +37,7 @@ exports.addRegion = async (req, res) => {
       data: newRegion,
     })
   } catch (error) {
-    console.error('Error adding region:', error)
+    logger.error('Error adding region:', error)
     res.status(500).json({ message: 'เกิดข้อผิดพลาดในการเพิ่ม region' })
   }
 }
@@ -73,7 +73,7 @@ exports.addAlertSettings = async (req, res) => {
     })
     res.status(201).json(setting)
   } catch (error) {
-    console.error('Error adding alert settings:', error)
+    logger.error('Error adding alert settings:', error)
     res.status(500).json({ message: 'เกิดข้อผิดพลาดในการเพิ่ม alert settings' })
   }
 }
@@ -114,7 +114,7 @@ exports.getDisasterRisks = async (req, res) => {
     res.json(result)
 
   } catch (error) {
-    console.error('Error fetching disaster risks:', error)
+    logger.error('Error fetching disaster risks:', error)
     res.status(500).json({ message: 'เกิดข้อผิดพลาดในการดึงข้อมูล disaster risks' })
   }
 }
