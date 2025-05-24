@@ -1,0 +1,7 @@
+[2025-05-24 13:43:51] [&{level.toUpperCase()}]: Fetching disaster risk for region: Bangkok, type: wildfire
+[2025-05-24 13:43:52] [&{level.toUpperCase()}]: Wildfire risk data for Bangkok: Temp = 33.41°C, Humidity = 42.36%
+[2025-05-24 13:43:52] [&{level.toUpperCase()}]: Fetching disaster risk for region: Bangkok, type: earthquake
+[2025-05-24 13:43:53] [&{level.toUpperCase()}]: Earthquake data for Bangkok: 1.5 mag at 6 km NNE of Point MacKenzie, Alaska
+[2025-05-24 13:43:53] [&{level.toUpperCase()}]: Fetching disaster risk for region: Bangkok, type: flood
+[2025-05-24 13:43:53] [&{level.toUpperCase()}]: Rainfall average for Bangkok: 4.74 mm
+[2025-05-24 13:54:00] [&{level.toUpperCase()}]: Found 0 pending alerts

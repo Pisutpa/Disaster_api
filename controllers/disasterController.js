@@ -9,7 +9,7 @@ const { getDisasterRisk } = require('../models/externalApiModel')
 const { calculateRiskScore, classifyScore } = require('../models/riskLevel')
 const { json } = require('express')
 require('dotenv').config()
-
+const logger = require('../utils/logger')
 
 exports.addRegion = async (req, res) => {
   // บันทึกข้อมูล region ลงฐานข้อมูล
@@ -123,6 +123,7 @@ exports.creatAlert = async (req, res) => {
   const { regionId, disasterType, level, message } = req.body
 
   if (!regionId || !disasterType || !level || !message) {
+    logger.warn('Missing required fields when creating alert.')
     return res.status(400).json({ error: "All fields are required." })
   }
 
@@ -138,6 +139,7 @@ exports.creatAlert = async (req, res) => {
     })
 
     if (!region) {
+      logger.warn(`Region not found for ID: ${regionId}`)
       return res.status(404).json({ error: "Region not found." })
     }
 
@@ -151,11 +153,11 @@ exports.creatAlert = async (req, res) => {
         timestamp: new Date()
       }
     })
-
+    logger.info(`Alert created: ID ${newAlert.id} for region ${regionId}`)
     res.status(201).json(newAlert)
 
   } catch (err) {
-    console.error("Error Creates Alert:", err)
+    logger.error(`Error creating alert: ${err.message}`, { error: err })
     res.status(500).json({ error: "Failed to create alert." })
   }
 }
@@ -169,7 +171,7 @@ exports.sendAlert = async (req, res) => {
       include: { region: true },
     })
 
-    console.log(`Found ${pendingAlerts.length} pending alerts`)
+    logger.info(`Found ${pendingAlerts.length} pending alerts`)
 
     if (pendingAlerts.length === 0) {
       return res.json({ status: 'success', sentCount: 0, message: 'No alerts to send' })
@@ -180,7 +182,7 @@ exports.sendAlert = async (req, res) => {
 
     for (const alert of pendingAlerts) {
       if (!alert.region?.name || !alert.disasterType || !alert.level || !alert.message) {
-        console.warn(` Alert ID ${alert.id} missing critical data, skipped.`)
+        logger.warn(`Alert ID ${alert.id} missing critical data, skipped.`)
         failedCount++
         continue
       }
@@ -203,8 +205,8 @@ exports.sendAlert = async (req, res) => {
       }
 
       try {
+        logger.info(`Sending alert to ${emailTo} (Alert ID ${alert.id})`)
         await sgMail.send(emailMsg)
-
         await prisma.alert.update({
           where: { id: alert.id },
           data: {
@@ -215,10 +217,10 @@ exports.sendAlert = async (req, res) => {
           },
         })
 
-        console.log(` Alert ID ${alert.id} sent to ${emailTo}`)
+        logger.info(`Alert ID ${alert.id} sent successfully`)
         successCount++
       } catch (alertError) {
-        console.error(` Failed to send alert ID ${alert.id}:`, alertError.message)
+        logger.error(`Failed to send alert ID ${alert.id}: ${alertError.message}`, { error: alertError })
 
         await prisma.alert.update({
           where: { id: alert.id },
@@ -241,7 +243,7 @@ exports.sendAlert = async (req, res) => {
       total: pendingAlerts.length,
     })
   } catch (error) {
-    console.error(' Send alert error:', error)
+    logger.error('Send alert error:', error)
     res.status(500).json({ status: 'error', message: 'Failed to send alerts', detail: error.message })
   }
 }
@@ -249,18 +251,19 @@ exports.sendAlert = async (req, res) => {
 exports.getAlerts = async (req, res) => {
   try {
     const fetchAlerts = await prisma.alert.findMany({
-      orderBy:[
-        { regionId: 'asc'},
-        { createdAt: 'desc'}
+      orderBy: [
+        { regionId: 'asc' },
+        { createdAt: 'desc' }
       ],
-      distinct:['regionId'],
-      include:{
-        region:true
+      distinct: ['regionId'],
+      include: {
+        region: true
       }
     })
+    logger.info(`Fetched ${fetchAlerts.length} latest alerts by region`)
     res.status(200).json(fetchAlerts)
   } catch (error) {
-    console.error('ดึงแจ้งเตือนล่าสุดในแต่ละพื้นที่ล้มเหลว', error)
+    logger.error('Failed to fetch alerts', { error })
     res.status(500), json({ message: 'เกิดข้อผิดพลาดในการดึงข้อมูล Alerts' })
 
   }

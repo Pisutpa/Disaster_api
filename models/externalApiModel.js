@@ -1,4 +1,5 @@
 const axios = require('axios')
+const logger = require('../utils/logger')
 
 const DisasterType = {
   flood: 'flood',
@@ -7,7 +8,7 @@ const DisasterType = {
 }
 
 exports.getDisasterRisk = async (region, disasterType) => {
-  console.log(`Fetching disaster risk for region: ${region.name}, type: ${disasterType}`)
+  logger.info(`Fetching disaster risk for region: ${region.name}, type: ${disasterType}`)
 
   // แปลง disasterType ให้เป็นตัวพิมพ์เล็ก เพื่อให้ตรงกับ enum
   const type = disasterType.toLowerCase()
@@ -30,12 +31,12 @@ exports.getDisasterRisk = async (region, disasterType) => {
         const rainfall = Array.isArray(precipitationArray) && precipitationArray.length > 0
           ? precipitationArray.reduce((sum, val) => sum + val, 0) / precipitationArray.length
           : 0
-
-
-        return { rainfall: rainfall.toFixed(2) };
+        const rainfallFixed = parseFloat(rainfall.toFixed(2))
+        logger.info(`Rainfall average for ${region.name}: ${rainfallFixed} mm`)
+        return { rainfall: rainfallFixed }
 
       } catch (error) {
-        console.error('Error fetching flood data:', error)
+        logger.error(`Error fetching flood data for ${region.name}: ${error.message}`)
         return {}
       }
     }
@@ -51,39 +52,40 @@ exports.getDisasterRisk = async (region, disasterType) => {
             minlongitude: region.minLon,
             maxlongitude: region.maxLon,
           }
-        });
+        })
 
         if (response.data?.features?.length > 0) {
-          const quake = response.data.features[0];
-          const magnitude = quake.properties.mag || 0;
-          const place = quake.properties.place || 'Unknown';
+          const quake = response.data.features[0]
+          const magnitude = quake.properties.mag || 0
+          const place = quake.properties.place || 'Unknown'
 
-          const timeUTC = quake.properties.time ? new Date(quake.properties.time) : null;
+          const timeUTC = quake.properties.time ? new Date(quake.properties.time) : null
 
           if (timeUTC) {
-            const timeInBangkok = new Date(timeUTC.getTime() + 7 * 60 * 60 * 1000); // +7 ชั่วโมง
-            const formattedTime = timeInBangkok.toISOString().replace('T', ' ').substring(0, 19);
-            console.log('เวลาประเทศไทย:', formattedTime);
-
+            const timeInBangkok = new Date(timeUTC.getTime() + 7 * 60 * 60 * 1000) // +7 ชั่วโมง
+            const formattedTime = timeInBangkok.toISOString().replace('T', ' ').substring(0, 19)
+            // console.log('เวลาประเทศไทย:', formattedTime)
+            logger.info(`Earthquake data for ${region.name}: ${magnitude} mag at ${place}`)
             return {
               magnitude: magnitude.toFixed(2),
               place,
               time: formattedTime  // ✅ ส่งค่าที่แปลงแล้วกลับไป
-            };
+            }
           } else {
             return {
               magnitude: magnitude.toFixed(2),
               place,
               time: null
-            };
+            }
           }
         } else {
-          return {};
+          logger.warn(`No earthquake data found for region: ${region.name}`)
+          return {}
         }
 
       } catch (error) {
-        console.error('Error fetching earthquake data:', error);
-        return {};
+        logger.error(`Error fetching earthquake data for ${region.name}: ${error.message}`)
+        return {}
       }
     }
 
@@ -102,23 +104,23 @@ exports.getDisasterRisk = async (region, disasterType) => {
         const humidities = hourly?.relative_humidity_2m || []
         const avgTemp = temperatures.length
           ? temperatures.reduce((sum, val) => sum + val, 0) / temperatures.length
-          : 0;
+          : 0
 
         const avgHumidity = humidities.length
           ? humidities.reduce((sum, val) => sum + val, 0) / humidities.length
-          : 0;
-
+          : 0
+        logger.info(`Wildfire risk data for ${region.name}: Temp = ${avgTemp.toFixed(2)}°C, Humidity = ${avgHumidity.toFixed(2)}%`)
         return {
           temperature: parseFloat(avgTemp.toFixed(2)),
           humidity: parseFloat(avgHumidity.toFixed(2)),
-        };
+        }
       } catch (error) {
-        console.error('Error fetching widfire data', error)
+        logger.error(`Error fetching wildfire data for ${region.name}: ${error.message}`)
         return {}
       }
     }
     default:
-      console.warn(`Unknown disaster type: ${disasterType}`)
+      logger.warn(`Unknown disaster type: ${disasterType} for region ${region.name}`)
       return {}
   }
 }
